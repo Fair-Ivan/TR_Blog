@@ -1,0 +1,245 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "人事管理平台";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>博客后台管理</title>
+    <link rel="stylesheet" href="~/layui/css/layui.css">
+    <link href="~/css/dialog.css" rel="stylesheet" />
+    <link href="~/css/ui-dialog.css" rel="stylesheet" />
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <a href="">
+                <div class="layui-logo">博客后台管理</div>
+            </a>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item">
+                    <a href="/">返回前台</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">预留标签</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">预留标签</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="">预留标签</a>
+                        </dd>
+                        <dd>
+                            <a href="">预留标签</a>
+                        </dd>
+                        <dd>
+                            <a href="">预留标签</a>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="https://gitee.com/uploads/66/890966_Leytton.png?1512991922" class="layui-nav-img">@ViewBag.User
+                    </a>
+                    <dl class="layui-nav-child">
+                        @*<dd>
+                                <a href="javascript:void(0);" onclick="addTab(this);">基本资料</a>
+                            </dd>*@
+                        <dd>
+                            <a href="javascript:" onclick="changepswd();">更改密码</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a onclick="logout()">注销</a>
+                </li>
+            </ul>
+        </div>
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree">
+                    <li class="layui-nav-item">
+                        <a class="layui-this" href="">主页</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">文章管理</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a class="layTabPlus" tab_url="/Page/blogs">随笔管理</a>
+                            </dd>
+                            @*<dd>
+                                <a class="layTabPlus" tab_url="/Page/author">作者列表</a>
+                            </dd>*@
+                            <dd>
+                                <a class="layTabPlus" tab_url="/Employee/attendance">公告</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">设置</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:void(0);" class="layTabPlus" tab_url="https://www.baidu.com"><i class="layui-icon layui-icon-star"> </i>预留标签</a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:void(0);" class="layTabPlus" tab_url=""> <i class="layui-icon layui-icon-star"> </i>预留标签</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">关于作者</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);" class="layTabPlus" tab_url="">预留标签</a></dd>
+                            <dd><a href="https://www.cnblogs.com/Ivan-Wu/" class="layTabPlus">博客园博客</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">其它</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);" class="layTabPlus" tab_url="">预留标签</a></dd>
+                            <dd><a href="javascript:void(0);" class="layTabPlus" tab_url="">预留标签</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:void(0);" class="layTabPlus" tab_url="https://www.baidu.com">预留标签</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div class="layui-tab" lay-filter="demoTab" lay-allowClose="true">
+                <ul class="layui-tab-title">
+                    <li class="layui-this noclose" lay-id='base_info'>主页</li>
+                </ul>
+                <div class="layui-tab-content" style="padding:0px;">
+                    <div class="layui-tab-item layui-show">
+                        <div class="sysNotice col">
+                            <blockquote class="layui-elem-quote title">基本信息</blockquote>
+                            <table class="layui-table">
+                                <tbody>
+                                    <tr>
+                                        <td>当前版本</td>
+                                        <td class="version">V1.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>作者</td>
+                                        <td class="author">Ivan</td>
+                                    </tr>
+                                    <tr>
+                                        <td>项目首页</td>
+                                        <td class="homePage"><a href="/Home">主页</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <style>
+                                                .pro_name a {
+                                                    color: #4183c4;
+                                                }
+
+                                                .osc_git_title {
+                                                    background-color: #fff;
+                                                }
+
+                                                .osc_git_box {
+                                                    background-color: #fff;
+                                                }
+
+                                                .osc_git_box {
+                                                    border-color: #E3E9ED;
+                                                }
+
+                                                .osc_git_info {
+                                                    color: #666;
+                                                }
+
+                                                .osc_git_main a {
+                                                    color: #9B9B9B;
+                                                }
+                                            </style>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-footer">
+            © 2018 <a href="http://47.107.140.21:8051">呵呵</a> - by 小午饭
+        </div>
+    </div>
+    <script src="~/layui/layui.all.js"></script>
+    <script>
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var element = layui.element;
+        var util = layui.util;
+        var table = layui.table;
+
+        function logout() {
+            $.ajax({
+                url: "/Logout",
+                type: "get",
+                success: function (data) {
+                    if (data == 200) {
+                        window.location.reload();
+
+                    }
+
+                }
+            });
+
+        }
+    </script>
+    <script src="~/js/layTabPlus.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/dialog-plus.js"></script>
+    <script src="~/js/Common.js"></script>
+    <script>
+        layTabPlus.init({
+            lay_filter: 'demoTab'
+        });
+    </script>
+    <script>
+        function changepswd() {
+            dig.addPage("修改密码", "/Home/Page/Changepwd/" + "@ViewBag.user", 250, 230, function () {
+            });
+        }
+    </script>
+
+</body>
+
+</html>
+<style>
+    .sysNotice .layui-table {
+        margin-top: 0;
+        border-left: 5px solid #e2e2e2;
+    }
+
+    .layui-elem-quote.title {
+        padding: 10px 15px;
+        margin-bottom: 0;
+    }
+
+    .sysNotice {
+        width: 75%;
+    }
+
+    .code {
+        color: #c7254e;
+        background-color: #f9f2f4;
+        border-radius: 2px;
+        padding: 4px 2px 0;
+    }
+</style>

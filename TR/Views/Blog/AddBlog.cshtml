@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "AddBlog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .child-nav {
+        position: relative;
+        border-bottom: 1px solid #e5e5e5;
+        overflow: hidden;
+        height: 39px;
+        line-height: 39px;
+        margin-top: 0px;
+        padding-top: 0px;
+        margin-left: 20px;
+    }
+
+    .layui-container {
+        flex: 1;
+        margin: 20px 5px;
+        padding: 0 10px;
+    }
+</style>
+<div class="child-nav" style="display:block;">
+    <span class="layui-breadcrumb" style="visibility: visible;">
+        <a>随笔管理</a><span lay-separator=""><strong>></strong></span>
+        <a><cite>添加随笔</cite></a>
+    </span>
+</div>
+<div class="layui-form-item">
+    <div class="layui-form-item">
+        <h2 style="margin-left:20px;margin-top:20px;">标题</h2>
+    </div>
+    <div class="layui-form-item">
+        <input type="text" style="width:97%;margin-left:20px;" name="title" id="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+    </div>
+    <div class="layui-form-item">
+        <h3 style="margin-left:20px;margin-top:20px;">内容</h3>
+    </div>
+    <div class="layui-form-item" style="margin-left:20px; width:97% !important;">
+        <textarea id="demo" style="margin-left:20px;"></textarea>
+    </div>
+    <div class="layui-form-item" style="margin-left:20px; width:97% !important;">
+        <a class="layui-btn layui-btn-lg" href="javascript:void(0)" id="reflash">发布</a>
+    </div>
+</div>
+
+<script>
+    layui.use('layedit', function () {
+        var layedit = layui.layedit;
+        layedit.set({
+            uploadImage: {
+                url: '/images/save' //接口url
+                , type: 'post' //默认post
+            }
+        });
+        var index = layedit.build('demo', {
+            height: 600
+        }); //建立编辑器
+
+        $('#reflash').on('click', function () {
+            var airtle = layedit.getContent(index);
+            var title = $("#title").val();
+            $.ajax({
+                url: "/blogs/save",
+                type: "post",
+                data: { title: title, airtle: airtle },
+                success: function (result) {
+                    if (result.code == 200) {
+                        diaMsg.alert("提示", "发布成功!", 180, 60, "确定", function () { });
+                    }
+                }
+            })
+        });
+    });
+</script>

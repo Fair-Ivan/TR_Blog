@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "ChangePwd";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-item">
+    <input type="password" style="width:200px;float:left;margin-left:25px;margin-top:15px" name="author" id="pwd" required lay-verify="required" placeholder="原密码" autocomplete="off" class="layui-input">
+    <input type="password" style="width:200px;float:left;margin-left:25px;margin-top:15px" name="author" id="newpwd" required lay-verify="required" placeholder="新密码" autocomplete="off" class="layui-input">
+    <input type="password" style="width:200px;float:left;margin-left:25px;margin-top:15px" name="author" id="final" required lay-verify="required" placeholder="再次确认新密码" autocomplete="off" class="layui-input">
+</div>
+<div class="form-item">
+    <a class="layui-btn layui-btn-sm layui-btn-normal" style="display:inline-block; margin-left:80%;margin-top:30px;" href="javascript:void(0)" id="Select" onclick="Change()">确定</a>
+</div>
+<script>
+    function Change()
+    {
+        if ($("#newpwd").val() === "" || $("#final").val() === "" || $("#pwd").val() === "") {
+            diaMsg.alert("提示", "请输入密码!", 180, 60,"确定", function () {
+            });
+            return;
+        }
+
+        if ($("#newpwd").val() != $("#final").val()) {
+            diaMsg.alert("提示", "两次输入密码不相同，请重新输入!", 180, 60, "确定", function () {
+            });
+            return;
+        }
+        $.ajax({
+            url: "/Home/ChangePwd",
+            type: "post",
+            data: { username: "@ViewBag.user", pwd: $("#pwd").val(), newpwd:$("#newpwd").val() },
+            success: function (data) {
+                if (data.code == 200) {
+                    diaMsg.alert("提示", "修改成功!", 180, 60, "确定", function () {
+                        var dialog = top.dialog.get(window);
+                        dialog.close();
+                    });
+                } else {
+                    diaMsg.alert("提示", "修改失败!", 180, 60, "确定", function () {                      
+                    });
+                    return;
+                }
+            }
+        });
+
+    }
+</script>

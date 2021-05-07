@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  tr:
+    image: ${DOCKER_REGISTRY}tr
+    build:
+      context: .
+      dockerfile: TR/Dockerfile

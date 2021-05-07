@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewData["Title"] = "artclePage";
+}
+
+<link rel="stylesheet" href="~/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/layui/css/layui.css" />
+<link rel="stylesheet" href="~/css/master.css" />
+<link rel="stylesheet" href="~/css/gloable.css" />
+<link rel="stylesheet" href="~/css/nprogress.css" />
+<link rel="stylesheet" href="~/css/blog.css" />
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+<script src="~/layui/layui.js"></script>
+<script src="~/js/gloable.js"></script>
+<script src="~/js/nprogress.js"></script>
+<script src="~/js/nprogress.js"></script>
+<script src="~/js/article.js"></script>
+<script src="~/js/pagecomment.js"></script>
+
+<style>
+    .doc-container {
+        background-image: url(/images/1.jpg);
+        background-size: 100% 100%;
+        background-attachment: fixed;
+    }
+</style>
+
+<div class="header">
+</div>
+<header class="gird-header">
+    <div class="header-fixed">
+        <div class="header-inner">
+            <a href="/" class="header-logo" style="background-image:url(/images/ivan.png);background-size:cover; width:150px !important; height:65px !important;"></a>
+            <nav class="nav" id="nav">
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="article.html">博客</a></li>
+                    <li><a href="/Page/blogs/add">新随笔</a></li>
+                    <li><a href="/home">后台</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="blog-user">
+                <i class="fa fa-weixin"></i>
+            </a>
+            <a class="phone-menu">
+                <i></i>
+                <i></i>
+                <i></i>
+            </a>
+        </div>
+    </div>
+</header>
+<div class="doc-container" id="doc-container">
+    <div class="container-fixed">
+        <div class="col-content" style="width:100%">
+            <div class="inner">
+                <article class="article-list">
+                    <input type="hidden" value="" id="blogtypeid" />
+                    <section class="article-item">
+                        <aside class="title" style="line-height:1.5;">
+                            <h4 id="blogtitle"></h4>
+                            <p class="fc-grey fs-14">
+                                <small>
+                                    作者：<a href="javascript:void(0)" id="blogauthor" target="_blank" class="fc-link"></a>
+                                </small>
+                                <small class="ml10">围观群众：<i class="readcount" id="blogpv"></i></small>
+                                <small class="ml10">更新于 <label id="edittime"></label> </small>
+                            </p>
+                        </aside>
+                        <div class="time mt10" style="padding-bottom:0;">
+                            <span class="day">22</span>
+                            <span class="month fs-18">5<small class="fs-14">月</small></span>
+                            <span class="year fs-18">2018</span>
+                        </div>
+                        <div class="content artiledetail" style="border-bottom: 1px solid #e1e2e0; padding-bottom: 20px;">
+                            <div id="content" class="content artiledetail" style="border-bottom: 1px solid #e1e2e0; padding-bottom: 20px;">
+                            </div>
+                            <div class="copyright mt20">
+                                <p class="f-toe fc-black">
+                                    非特殊说明，本文版权归 <texd id="names"></texd> 所有，转载请注明出处.
+                                </p>
+                                <p class="f-toe">
+                                    本文标题：
+                                    <a href="javascript:void(0)" class="r-title"></a>
+                                </p>
+                                <p class="f-toe">
+                                    本文网址：
+                                    <a href="#" id="blogurl"></a>
+                                </p>
+                            </div>
+                            <div id="aplayer" style="margin:5px 0"></div>
+                            <ol class="b-relation"></ol>
+                        </div>
+                        <div class="bdsharebuttonbox share" data-tag="share_1">
+                            <ul>
+                                <li class="f-praise"><span><a href="https://github.com/" class="github" target="_blank"><i class="fa fa-github"></i></a></span></li>
+                                <li class="f-weinxi"><a href="https://www.apple.com/cn/?afid=p238%7C14GnqV7yu-dc_mtid_18707vxu38484_pcrid_27894890835_&cid=aos-CN-kwba-brand" class="apple" target="_blank" title="apple"><i class="fa fa-apple"></i></a></li>
+                                <li class="f-sina"> <a href="https://www.cnblogs.com/" class="email" target="_blank"><i class="fa fa-envelope"></i></a></li>
+                                <li class="f-qq" href="#"> <a href="https://wx.qq.com/" class="weixin"><i class="fa fa-weixin"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="f-cb"></div>
+                        <div class="mt20 f-fwn fs-24 fc-grey comment" style="border-top: 1px solid #e1e2e0; padding-top: 20px;">
+                        </div>                       
+                        <ul class="blog-comment" id="blog-comment"></ul>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="grid-footer">
+    <div class="footer-fixed">
+        <div class="copyright">
+            <div class="info">
+                <div class="contact">
+                    <a href="https://github.com/" class="github" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="https://www.apple.com/cn/?afid=p238%7C14GnqV7yu-dc_mtid_18707vxu38484_pcrid_27894890835_&cid=aos-CN-kwba-brand" class="apple" target="_blank" title="apple"><i class="fa fa-apple"></i></a>
+                    <a href="https://www.cnblogs.com/" class="email" target="_blank"><i class="fa fa-envelope"></i></a>
+                    <a href="https://wx.qq.com/" class="weixin"><i class="fa fa-weixin"></i></a>
+                </div>
+                <p class="mt05">
+                    Copyright &copy; The Blogs of Ivan
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>NProgress.start();</script>
+<script>
+    window.onload = function () {
+        NProgress.done();
+    };
+</script>
+<script>
+    $(function () {
+        $.ajax({
+            url: "/GetBlog/" + "@ViewBag.id",
+            type:"get",
+            success: function (result) {
+                debugger;
+                var blog = result.data;
+                $("#blogtitle").text(blog.title);
+                $(".r-title").text(blog.title);
+                $("#blogauthor").text(blog.name);
+                $("#names").text(blog.name);
+                $("#blogpv").text(blog.pv);
+                $("#edittime").text(blog.editTime);
+                $("#blogurl").text(blog.url);
+                $("#content").append(blog.content);
+
+            }
+        });
+    })
+</script>
+

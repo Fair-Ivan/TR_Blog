@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewData["Title"] = "BlogPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .child-nav {
+        position: relative;
+        border-bottom: 1px solid #e5e5e5;
+        overflow: hidden;
+        height: 39px;
+        line-height: 39px;
+        margin-top: 0px;
+        padding-top: 0px;
+        margin-left: 20px;
+    }
+
+    .layui-container {
+        flex: 1;
+        margin: 20px 5px;
+        padding: 0 10px;
+    }
+</style>
+<div class="child-nav" style="display:block;">
+    <span class="layui-breadcrumb" style="visibility: visible;">
+        <a>文章管理</a><span lay-separator=""><strong>></strong></span>
+        <a><cite>随笔列表</cite></a>
+    </span>
+</div>
+<div style="display:flex; margin:0;padding:0; box-sizing: border-box;">
+    <div class="layui-container">
+        <div style="margin:0px !important;">
+            <div style="margin-bottom:10px; margin-top:0px;">
+                <a class="layui-btn layui-btn-sm" href="javascript:void(0)" onclick="ShowAdd()">新增</a>
+                <a class="layui-btn layui-btn-sm layui-btn-normal" href="javascript:void(0)" onclick="Update()">编辑</a>
+                <a class="layui-btn layui-btn-sm layui-btn-danger" href="javascript:void(0)" onclick="Delete()">删除</a>
+            </div>
+            <div class="items">
+                <div class="layui-form-item">
+                    <input type="text" style="width:200px;float:left;" name="title" id="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                    <input type="text" style="width:200px;float:left;margin-left:20px;" name="author" id="author" required lay-verify="required" placeholder="请输入作者姓名" autocomplete="off" class="layui-input">
+                    <a class="layui-btn layui-btn-sm layui-btn-normal" style="float:left;margin-left:20px;margin-top:3px;" href="javascript:void(0)" id="Select">查询</a>
+                    <a class="layui-btn layui-btn-sm layui-btn-normal" style="float:left;margin-left:20px;margin-top:3px;" href="javascript:void(0)" id="reflash">重置</a>
+                </div>
+            </div>
+        </div>
+        <form action="" id="formInfo" style="margin-top:10px;">
+            <table lay-size="sm" id="blogList" lay-filter="blogList"></table>
+        </form>
+    </div>
+</div>
+<script>
+
+    function ShowAdd() {
+        window.location.href = "/Page/blogs/add";
+    }
+
+    layui.use(['table', 'laypage'], function () {
+        var laypage = layui.laypage;
+        var table = layui.table;
+        table.render({
+            elem: '#blogList'
+            , url: '/blogs'
+            , method: "get"
+            , height: "auto"
+            , cellMinWidth: 80
+            , limit: 10
+            , curr: 1
+            , request: {
+                pageName: 'pageIndex'
+            }
+            , page: {
+                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                , groups: 5 //只显示 1 个连续页码
+                , first: false //不显示首页
+                , last: false //不显示尾页
+            }
+            , limits: [10, 20, 50, 100, 500, 1000]
+            , cols: [[
+                { type: "checkbox", fixed: "left" },
+                { type: 'numbers', title: '序号' },
+                { field: 'title', title: '标题', toolbar: '#titles', width: 300 },
+                { field: 'name', title: '作者', sort: true, width: 100 },
+                { field: 'summary', title: '摘要', sort: true, width: 300 },
+                { field: 'pv', title: '浏览量', sort: true, width: 100 },
+                { field: 'category', title: '分类', width: 150 },
+                { field: 'top', title: '是否置顶', width: 100 },
+                { field: 'createTime', title: '添加时间', width: 150 },
+                { field: 'editTime', title: '编辑时间', sort: true, width: 150 },
+                { field: 'socialMoney', title: '编辑', fixed: 'right', toolbar: '#editDetail', width: 100 },
+                { field: 'socialMoney', title: '删除', fixed: 'right', toolbar: '#deleteDetail', width: 100 }
+            ]]
+        });
+        $('#Select').on('click', function () {
+            table.reload("blogList", {
+                where: {
+                    author: $("#author").val(),
+                    title: $("#title").val()
+                }
+            });
+        });
+        $('#reflash').on('click', function () {
+            table.reload("blogList", {
+                where: {
+                    author: null,
+                    title: null
+                }
+            });
+        });
+        table.on('tool(blogList)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'Detail') {
+                window.location = "businessDetail/" + data.policyId + "/" + data.operation;
+            }
+            if (obj.event === 'deleteDetail') {
+                window.location = "businessDetail/" + data.policyId + "/" + data.operation;
+            }
+        });
+    });
+</script>
+<script type="text/html" id="titles">
+    <a href="/Page/artcle/{{d.id}}" class="layui-table-link" target="_blank">{{ d.title }}</a>
+</script>
+<script type="text/html" id="editDetail">
+    <button class="layui-btn layui-btn-xs" lay-event="Detail">编辑</button>
+</script>
+<script type="text/html" id="deleteDetail">
+    <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="deleteDetail">删除</button>
+</script>
+
+
